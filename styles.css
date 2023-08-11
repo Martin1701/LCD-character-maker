@@ -52,7 +52,6 @@ div {
     margin: 5px;
 
     border-radius: 40px;
-    /* border: 15px solid #999999; */
     background: #dbdbdb;
 
     border: 2px solid #999999;
@@ -194,6 +193,9 @@ footer>div {
     border-radius: 5px;
     text-align: center;
     cursor: pointer;
+    background-color: transparent;
+    border: 2px solid #999999;
+    font-weight: 400;
 }
 
 .menuItem:hover {
@@ -261,7 +263,6 @@ lcd-pixel:hover,
     overflow-x: hidden;
     padding-top: 60px;
     transition: 0.5s;
-    /* color: whitesmoke; */
     -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
     -webkit-user-select: none;

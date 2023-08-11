@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="/images/icon.png">
+    <link rel="icon" type="image/x-icon" href="./images/icon.png">
     <link rel="stylesheet" href="./styles.css">
     <title>LCD character maker</title>
 </head>
@@ -110,7 +110,8 @@
     </div>
     <div id="charMenu">
         <div>
-            <label class="menuItem" id="cursorPosition" onclick="char_copyPosition()" title="cursor's position"></label>
+            <button class="menuItem" id="cursorPosition" onclick="char_copyPosition()"
+                title="cursor's position"></button>
             <button class="menuItem" onclick="char_output(event)" title="output character data">Generate Output</button>
             <button class="menuItem" onclick="lcd.char.clear()" title="clear selected character">Clear Pixels</button>
             <button class="menuItem" onclick="lcd.char.invert()" title="invert selected character">Invert

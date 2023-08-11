@@ -1,6 +1,6 @@
 const contrastSlider = document.getElementById("contrast");
 const brightnessSlider = document.getElementById("brightness");
-const baseUrl = window.location.origin.toString();
+const baseUrl = location.protocol + '//' + location.host + location.pathname
 // create styles used for dynamically changing objects (mostly color)
 var style
 
