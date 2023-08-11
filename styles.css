@@ -1,0 +1,378 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: auto;
+    font-family: 'Geneva', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: #131313;
+}
+
+.title {
+    text-align: center;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    display: block;
+    font-size: 50px;
+    font-weight: 600;
+    padding: 10px;
+    font-family: 'Chicago', 'Arial', sans-serif;
+    user-select: none;
+}
+
+div {
+    box-sizing: border-box;
+}
+
+#lcd_position {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: auto;
+}
+
+#lcd_frame {
+    box-sizing: border-box;
+    height: auto;
+    width: auto;
+
+    min-width: 40%;
+
+    transition: 0.5s;
+
+    padding: 30px;
+
+    margin: 5px;
+
+    border-radius: 40px;
+    /* border: 15px solid #999999; */
+    background: #dbdbdb;
+
+    border: 2px solid #999999;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+
+.lcdInfo {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    display: flex;
+
+    justify-content: center;
+    /* user-select: none; */
+}
+
+.lcdInfo>div {
+    background-color: #dbdbdb;
+    border-radius: 20px;
+    padding: 15px;
+    border: 2px solid #999999;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+
+lcd-lcd {
+    transition: width 0.5s, background-color 1s;
+    box-sizing: border-box;
+    height: auto;
+    width: auto;
+
+    padding: 14px;
+
+    border-radius: 20px;
+
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    /* overflow: hidden; */
+}
+
+footer {
+    margin-top: 50px;
+    width: 100%;
+    background-color: #dbdbdb;
+    padding-bottom: 5px;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+
+    border-top: 2px solid #999999;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+
+footer>div {
+    width: 80%;
+}
+
+.pixelGrid {
+    /* height: 95px; */
+    /* width: 50px; */
+    aspect-ratio: 5 / 8;
+    background-color: rgba(149, 149, 149, 0.05);
+    display: grid;
+    grid-template-rows: repeat(8, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+
+    /* padding: 2px; */
+
+}
+
+.lcd-blue {
+    background-color: rgb(35, 35, 165)
+}
+
+.lcd-yellow {
+    background-color: rgb(130, 165, 90);
+}
+
+#charMenu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    visibility: hidden;
+
+}
+
+#charMenu>div {
+    display: flex;
+    flex-direction: column;
+    background-color: #dbdbdb;
+    border-radius: 0px 10px 10px 10px;
+
+    /* border: 2px solid #999999; */
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+
+#charInputWrap {
+    padding-top: 0px;
+    position: fixed;
+    width: 100%;
+    height: 200px;
+    top: -200px;
+    left: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    font-size: 30px;
+    /* background-color: #111111b0; */
+    border-top: 0;
+    border-radius: 0 0 20px 20px;
+}
+
+#charInput {
+    width: 400px;
+    margin: 0px 30px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: whitesmoke;
+    font-size: 30px;
+    border: 2px solid whitesmoke;
+}
+
+#charInputWrap>button {
+    border-radius: 5px;
+    box-sizing: border-box;
+    height: 50px;
+    aspect-ratio: 1/1;
+    margin-right: 15px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.menuItem {
+    margin: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.menuItem:hover {
+    background-color: lightgrey;
+}
+
+
+lcd-pixel {
+    aspect-ratio: 1 / 1;
+    min-width: 2px;
+    cursor: pointer;
+}
+
+lcd-pixel:hover,
+.highlight {
+    box-shadow: 0px 0px 5px lightblue;
+    transition: box-shadow 0.1s ease 0s;
+}
+
+.openSidesBtn {
+    position: fixed;
+    bottom: 50px;
+    display: flex;
+    box-shadow: none;
+    /* transition: all 0.5s; */
+    transition: opacity 1s, left 0.5s, right 0.5s;
+    cursor: pointer;
+
+    padding: 5px;
+
+    background-color: #dbdbdb;
+    border: 2px solid #999999;
+
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+    justify-content: flex-end;
+    align-content: center;
+}
+
+.openSidesBtn>img {
+    transition: all 0.5s;
+    height: 80px;
+    user-select: none;
+}
+
+#settingsBtn {
+    left: 0px;
+    border-left: 0px;
+    border-radius: 0px 20px 20px 0px;
+}
+
+#outputBtn {
+    right: 0px;
+    border-right: 0px;
+    border-radius: 20px 0px 0px 20px;
+}
+
+.sideCollapsibleBar {
+    height: 100%;
+    width: 400px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    /* left or right decided in side-specific classes */
+    background-color: #dbdbdb;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+    /* color: whitesmoke; */
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    -webkit-user-select: none;
+    user-select: none;
+
+    border: 2px solid #999999;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sideCollapsibleBarLabel {
+    font-size: 40px;
+    text-align: center;
+    display: block;
+    width: 100%;
+    font-family: 'Chicago', 'Arial', sans-serif;
+}
+
+.settings {
+    left: -400px;
+    border-radius: 0 20px 20px 0;
+    border-left: 0;
+}
+
+.sideCollapsibleBar>.closeBtn {
+    position: absolute;
+    top: 0px;
+    /* left or right decided in side-specific classes */
+    font-size: 50px;
+    text-decoration: none;
+    color: inherit;
+
+}
+
+.settings>.closeBtn {
+    right: 25px;
+}
+
+.prettyButton {
+    text-decoration: none;
+    color: inherit;
+    border: 2px solid grey;
+    padding: 4px;
+    border-radius: 5px;
+    transition: 0.1s;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.prettyButton:hover {
+    background-color: rgba(211, 211, 211, 0.5);
+}
+
+.optionsContainer {
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 2fr 50% 1fr;
+
+    align-items: center;
+    justify-content: center;
+    margin: 15px;
+}
+
+.optionsContainer>label {
+    text-align: right;
+    margin-right: 10px;
+}
+
+.radioSelection {
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    display: flex;
+    padding: 0px 10px;
+}
+
+.radioSelection>span {
+    width: 20px;
+}
+
+
+#charOutput {
+    position: fixed;
+    right: -400px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 20px 0 0 20px;
+    border-right: 0;
+}
+
+#charOutput>.closeBtn {
+    left: 25px;
+}
+
+#charOutput>label {
+    font-size: 30px;
+}
+
+#charOutput>button {
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+#charOutputText {
+    resize: none;
+    width: 80%;
+    height: 60%;
+    background-color: rgba(0, 0, 0, 0.7);
+    font-size: 20px;
+    color: whitesmoke;
+    margin-top: 15px;
+    border: 2px solid whitesmoke;
+}

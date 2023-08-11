@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/icon.png">
+    <link rel="stylesheet" href="./styles.css">
+    <title>LCD character maker</title>
+</head>
+
+<body>
+    <header><label class="title">LCD character maker</label></header>
+    <div id="lcd_position">
+        <div id="lcd_frame" oncontextmenu="event.preventDefault()">
+        </div>
+    </div>
+    <div class="lcdInfo">
+        <div>
+            <h2>Usage Instructions:</h2>
+            <ul>
+                <li>To toggle individual pixels, simply left-click on them.</li>
+                <li>For characters, right-click to select and access context menu options:</li>
+                <ol>
+                    <li>Copy character position to clipboard [column, row].</li>
+                    <li><b>Generate Output</b> - Create custom character output for C/C++ language.</li>
+                    <li><b>Clear Pixels</b> - Reset pixels of the selected character.</li>
+                    <li><b>Invert Pixels</b> - Invert the pixel state of the selected character.</li>
+                    <li><b>Copy Setup</b> - Copy pixel arrangement to clipboard.</li>
+                    <li><b>Paste Last</b> - Paste the last copied character (non-clipboard).</li>
+                    <li><b>Write Text</b> - Begin writing text to the LCD from the selected character.</li>
+                    <li><b>Clear All</b> - Clear all characters (reset the entire LCD).</li>
+                </ol>
+                <li>Adjust the LCD settings through the settings panel as needed.</li>
+            </ul>
+        </div>
+    </div>
+    <div onclick="openSettings(event)" class="openSidesBtn" id="settingsBtn">
+        <img src="images/gear.png">
+    </div>
+    <div onclick="openOutput(event)" class="openSidesBtn" id="outputBtn">
+        <img src="images/output.png">
+    </div>
+    <div class="settings sideCollapsibleBar" id="LCDControls" onclick="menuAction(event)">
+        <label class="sideCollapsibleBarLabel">Settings</label>
+        <a href="javascript:void(0)" class="closeBtn" onclick="closeSettings(event)">&times;</a>
+        <div class=" optionsContainer">
+            <label for="LCDSize">size:</label>
+            <input type="range" min="0" max="11" step="1" value="3" class="slider" id="LCDSize"
+                oninput="changeSize(this.value)" title="LCD display size">
+            <label id="sizeValue" for="LCDSize">NaN</label>
+        </div>
+        <div class=" optionsContainer">
+            <label for="LCDWidth">width:</label>
+            <input type="range" min="50" max="100" step="1" value="100" class="slider" id="LCDWidth"
+                oninput="changeWidth(this.value)" title="width of LCD shown on screen">
+            <label id="widthValue" for="LCDWidth">NaN</label>
+        </div>
+        <div class="optionsContainer">
+            <label for="brightness">brightness:</label>
+            <input type="range" min="0" max="100" step="1" value="100" class="slider" id="brightness" oninput="lcd.brightness = this.value
+                document.getElementById('brightnessValue').innerText=this.value" title=" brightness">
+            <label id="brightnessValue" for="brightness">NaN</label>
+        </div>
+        <div class="optionsContainer">
+            <label for="contrast">contrast:</label>
+            <input type="range" min="40" max="100" step="1" value="97" class="slider" id="contrast" oninput="lcd.contrast = this.value
+                document.getElementById('contrastValue').innerText=this.value" title="contrast">
+            <label id="contrastValue" for="contrast">NaN</label>
+        </div>
+        <div class="optionsContainer">
+            <label>backlight:</label>
+            <div class="radioSelection">
+                <label for="lcd_color_B">blue</label>
+                <input type="radio" name="lcd_color_selection" value="blue" checked title="blue" id="lcd_color_B"
+                    onclick="changeColor('blue')">
+                <span></span>
+                <label for="lcd_color_Y">yellow</label>
+                <input type="radio" name="lcd_color_selection" value="yellow" title="yellow" id="lcd_color_Y"
+                    onclick="changeColor('yellow')">
+            </div>
+        </div>
+        <div class="optionsContainer">
+            <label title="turn off the annoying Windows XP error sound">beep:</label>
+            <div class="radioSelection">
+                <label for="beep_on">on</label>
+                <input type="radio" name="beep_setting" value="on" checked title="on" id="beep_on"
+                    onclick="beepEnabled = true">
+                <span></span>
+                <label for="beep_off">off</label>
+                <input type="radio" name="beep_setting" value="off" title="off" id="beep_off"
+                    onclick="beepEnabled = false">
+            </div>
+        </div>
+        <div class="optionsContainer">
+            <span></span>
+            <div class="radioSelection">
+                <a href="javascript:void(0)" class="prettyButton" onclick="restoreDefaults(event)">restore
+                    defaults</a>
+            </div>
+        </div>
+    </div>
+    <div class="sideCollapsibleBar" id="charOutput" onclick="event.stopPropagation()">
+        <a href="javascript:void(0)" class="closeBtn" onclick="closeOutput(event)">&times;</a>
+        <label class="sideCollapsibleBarLabel">Output</label>
+        <label class="sideCollapsibleBarLabel" id="outputCharCoord">of character [x, x]</label>
+        <textarea type="text" id="charOutputText" readonly>Right-click the character you want to output and click the "Generate Output" option
+        </textarea>
+        <button class="prettyButton" id="copyCharBtn" onclick="copyCharOutput()">Copy</button>
+    </div>
+    <div id="charMenu">
+        <div>
+            <label class="menuItem" id="cursorPosition" onclick="char_copyPosition()" title="cursor's position"></label>
+            <button class="menuItem" onclick="char_output(event)" title="output character data">Generate Output</button>
+            <button class="menuItem" onclick="lcd.char.clear()" title="clear selected character">Clear Pixels</button>
+            <button class="menuItem" onclick="lcd.char.invert()" title="invert selected character">Invert
+                Pixels</button>
+            <button class="menuItem" onclick="char_copy()" title="copy raw data to clipboard">Copy Setup</button>
+            <button class="menuItem" id="pasteButton" disabled onclick="char_paste()"
+                title="paste last copied character">Paste Last</button>
+            <button class="menuItem" onclick="char_write(event)" title="write text to lcd starting here">Write
+                Text</button>
+            <button class="menuItem" onclick="lcd.clear()" title="clear whole screen">Clear all</button>
+        </div>
+    </div>
+    <div id="charInputWrap" class="sideCollapsibleBar" onclick="event.stopPropagation()">
+        <label for="charInput" id="charInputLabel">write text starting from [x, x]:</label><input id="charInput"
+            type="text" onchange="writeText(this.value)" id="writeInput"><button class="prettyButton">→</button>
+        <button class="prettyButton" onclick="closeInputText()">&times;</button>
+    </div>
+    <footer>
+        <div>2023 Martin Husár</div>
+    </footer>
+    <script src="./charPatterns.js"></script>
+    <script src="./liquidCrystal.js"></script>
+    <script src="LCDControls.js"></script>
+    <script src="errorBeep.js"></script>
+    <script Content-type src="./init.js"></script>
+</body>
+
+</html>
